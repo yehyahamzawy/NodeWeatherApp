@@ -2,12 +2,15 @@ const geocode = require('./utils/geocode')
 const weatherstack = require('./utils/weatherstack')
 
 
-// geocode('Madinaty', (error, data) => {
-//     console.log('error:', error)
-//     console.log('data:', data)
-// })
+geocode('Madinaty', (error, data) => {
+    if(error) console.log('error:', error)
 
-// weatherstack([37.8267,-122.4223], (error, data) => {
-//     console.log('error:', error)
-//     console.log('data:', data)
-// })
+   else  weatherstack([data[0],data[1]], (error, data) => {
+       if(error) console.log('error:', error)
+
+       else console.log('data:', data)
+     })
+   
+
+})
+
