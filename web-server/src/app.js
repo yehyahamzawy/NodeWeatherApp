@@ -1,21 +1,24 @@
 const express = require('express')
 const path = require('path')
 
-console.log(__dirname)
-const publicDir = path.join(__dirname,'../public')
-
 const app = express()
 
+// defining config paths
+const publicDir = path.join(__dirname,'../public')
+const tempsPath = path.join(__dirname,'../templates')
+
+// setup for handlebars engine and path
 app.set('view engine', 'hbs') // hbs is a handle bar npm package to create a dynamic handle bar. takes advantage of express. express takes it as engine. must write 'view engine'
+app.set('views', tempsPath) // this changes the default directory (views) name and path to a desired one
+
+// static serve up directories
 app.use(express.static(publicDir))
 
-
-
-app.get('', (req, res) => {
+app.get('', (req, res) => { //renders the handle bar that we set (hbs)
     res.render('index', {
         title: 'No Man\'s Weather',
         name: 'yaya'
-    }) //renders the handle bar that we set (hbs)
+    }) 
 })
 
 app.get('/help', (req, res) => {
