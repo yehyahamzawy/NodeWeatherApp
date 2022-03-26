@@ -2,6 +2,9 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 
+const geocode = require('./utils/geocode')
+const weatherstack = require('./utils/weatherstack')
+
 const app = express()
 
 // defining config paths
@@ -39,8 +42,40 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-    res.send('weather is nice')
+    if(!req.query.address)
+    {
+        return res.render('weather',{
+            error: 'you must provide an address'
+        })
+    }
+    
+    geocode(req.query.address, (geoError, geoData) => { //i could use the shorthand syntax and parse the arguement: {latitude, longitude, placeName} = {}, 
+                                                       //but i would just empty everything from the parsed object. which is just counterintuitive
+    if(geoError) return res.render('weather',{
+        error: geoError
+    })
+
+     weatherstack([geoData.latitude, geoData.longitude], (weatherstackError, weatherstackData) => {
+       if(weatherstackError) return res.render('weather',{
+        error: weatherstackError
+    })
+
+    
+     res.render('weather',{
+         name:'yaya', 
+        forecast: weatherstackData,
+        location: geoData.placeName,
+        address: req.query.address
+    })
+     })
+   
+
 })
+
+
+})
+
+
 
 app.get('/help/*', (req, res) =>{
     res.render('404', {
