@@ -11,7 +11,7 @@ request({url: geoURL, json: true}, (error, {body: {'features': response} ={}} ={
         callback('Something went wrong!')
 
     }else if (response.length === 0) {
-        callback('Bad location!')
+        callback('Location entered is invalid!')
     } else {
         
     const longitude = response[0].center[0]
