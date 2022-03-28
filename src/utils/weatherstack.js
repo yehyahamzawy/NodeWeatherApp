@@ -10,7 +10,7 @@ request({ url: url, json: true }, (error, {'body':response, body:{'current':curr
         callback('Something went wrong!')
     } else {
     
-    callback(undefined, ('it is currently: ' + currentWeather.temperature + ' degrees out. it feels like ' + currentWeather.feelslike + ' degrees out, and it is ' + currentWeather.weather_descriptions[0]))
+    callback(undefined, ('it is currently: ' + currentWeather.temperature + ' degrees out. it feels like ' + currentWeather.feelslike + ' degrees out, and it is ' + currentWeather.weather_descriptions[0] + ' with ' + currentWeather.humidity +'% humidity'))
 
     }
 })

@@ -24,7 +24,7 @@ app.use(express.static(publicDir))
 app.get('', (req, res) => { //renders the handle bar that we set (hbs)
     res.render('index', {
         title: 'No Man\'s Weather',
-        name: 'Yehya Hamzawy'
+        name: 'Yehya Hamzawy',
     }) 
 })
 
