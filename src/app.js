@@ -8,6 +8,10 @@ const weatherstack = require('./utils/weatherstack')
 const app = express()
 const port = process.env.PORT || 3000
 
+require('dotenv').config();
+const weatherstackKey = process.env.WEATHERSTACK_KEY
+const geocodeKey = process.env.MAPBOX_KEY
+
 // defining config paths
 const publicDir = path.join(__dirname,'../public')
 const tempsPath = path.join(__dirname,'../templates/views')
@@ -44,13 +48,13 @@ app.get('/weather', (req, res) => {
         })
     }
     
-    geocode(req.query.address, (geoError, geoData) => { //i could use the shorthand syntax and parse the arguement: {latitude, longitude, placeName} = {}, 
+    geocode(req.query.address, geocodeKey, (geoError, geoData) => { //i could use the shorthand syntax and parse the arguement: {latitude, longitude, placeName} = {}, 
                                                        //but i would just empty everything from the parsed object. which is just counterintuitive
     if(geoError) return res.send({
         error: geoError
     })
 
-     weatherstack([geoData.latitude, geoData.longitude], (weatherstackError, weatherstackData) => {
+     weatherstack([geoData.latitude,geoData.longitude], weatherstackKey,(weatherstackError, weatherstackData) => {
        if(weatherstackError) return res.send({
         error: weatherstackError
     })
@@ -79,5 +83,5 @@ app.get('*', (req, res) =>{
 })
 
 app.listen(port, () => {
-    console.log('server is up on port ' + port)
+    console.log('server is up on port ' + port,)
 })
