@@ -24,21 +24,15 @@ app.use(express.static(publicDir))
 app.get('', (req, res) => { //renders the handle bar that we set (hbs)
     res.render('index', {
         title: 'No Man\'s Weather',
-        name: 'yaya'
+        name: 'Yehya Hamzawy'
     }) 
 })
 
-app.get('/help', (req, res) => {
-    res.render('help', {
-     title: 'need help?',
-     name: 'yaya'
- })
-})
+
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'about me',
-        name: 'yaya'
+        name: 'Yehya Hamzawy'
     })
 })
 
@@ -63,7 +57,7 @@ app.get('/weather', (req, res) => {
 
     
      res.send({
-         name:'yaya', 
+         name:'Yehya Hamzawy', 
         forecast: weatherstackData,
         location: geoData.placeName,
         address: req.query.address
@@ -76,14 +70,6 @@ app.get('/weather', (req, res) => {
 
 })
 
-
-
-app.get('/help/*', (req, res) =>{
-    res.render('404', {
-        title: 'help article not found 404',
-        name: 'yaya'
-    })
-})
 
 app.get('*', (req, res) =>{
     res.render('404', {
